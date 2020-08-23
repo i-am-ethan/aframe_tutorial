@@ -1,27 +1,21 @@
 <!doctype html>
 <html>
   <head>
+    <!-- aframeの導入 -->
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <title>eheeeee</title>
+
+    <title>ehe_practice</title>
   </head>
   <body>
     <a-scene>
-      <a-box 
-      scale="3 3 3" 
-      position="0 1 -3" 
-      rotation="0 45 0" 
-      color="#4CC3D9" 
-      animation="
-      property: position;
-      to:1 8 -10; 
-      dur: 2000; 
-      easing: linear; 
-      loop:true">
-      </a-box>
-      <a-sky color="#ECECEC"></a-sky>
-
+      <!-- 3Dモデル（gltfファイル） -->
+      <a-assets>
+        <a-asset-items id="bird" src="scene.gltf" ></a-asset-items>
+      </a-assets>
+      <a-entity gltf-model="#bird" scale="0.01 0.01 0.01"></a-entity>
+      <!-- カメラ設置 -->
       <a-camera
-        position="0 1 4"
+        position="0 10 30"
         cursor-visible="true"
         cursor-scale="5"
         cursor-color="#0095DD"
@@ -39,49 +33,6 @@
         type="ambient"
         color="#FFF">
       </a-light>
-      <!-- 高度なジオメトリの追加（ドーナツ） -->
-      <a-entity
-        geometry="
-          primitive: torus;
-          radius: 1;
-          radiusTubular: 0.1;
-          segmentsTubular: 12;"
-        material="
-          color: #EAEFF2;
-          roughness: 0.1;
-          metalness: 0.5;"
-        rotation="10 0 0"
-        position="-3 1 0"
-        animation ="
-        property:position;
-        from:-2 0.2 0.5;
-        to:5 5 1;
-        dur:5000;
-        easing:linear;
-        loop:true;
-        ">
-      </a-entity>
-
-
     </a-scene>
-
-    <!-- JSで書いたエンティティをシーンに追加 -->
-    <script>
-      var scene = document.querySelector('a-scene');
-      var cylinder = document.createElement('a-cylinder');
-      cylinder.setAttribute('color', '#FF9500');
-      cylinder.setAttribute('height', '2');
-      cylinder.setAttribute('radius', '0.75');
-      cylinder.setAttribute('position', '3 1 0');
-      scene.appendChild(cylinder);
-
-      var t = 0;
-      function render() {
-        t += 0.01;
-        requestAnimationFrame(render);
-        cylinder.setAttribute('position', '3 '+(Math.sin(t*2)+1)+' 0');
-      }
-      render();
-    </script>
   </body>
 </html>
